@@ -1,7 +1,7 @@
 # About this Project
 
 This project was created as part of my React.js studies. I built this app as a response to Maximillian Schwarzmuller's React Complete Guide (udemy) course assignment. CSS was hard coded from scratch, only animations were refered too. 
-My build is slightly different from Maximillian's, however they are basically the same so I want to give him credit and say he is an awesome teacher!!
+I want thank Maximillian for helping me get started with React and say he is an awesome teacher!!
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
