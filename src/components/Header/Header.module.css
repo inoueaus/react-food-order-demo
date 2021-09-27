@@ -1,0 +1,82 @@
+.nav {
+    position: relative;
+    width: 100%;
+    top: 0;
+    display: block;
+    background: rgb(116, 52, 0);
+    color: white;
+}
+
+.items {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: .5rem;
+}
+
+.title {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.cart-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 200px;
+    background: rgb(77, 34, 0);
+    border: 1px rgb(77, 34, 0) solid;
+    border-radius: 10px;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.cart-box:hover {
+    background: rgb(41, 18, 0);
+    border-color: rgb(41, 18, 0);
+}
+
+.cart-text {
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+}
+
+.cart-counter {
+    background: rgb(116, 52, 0);
+    border: 1px rgb(77, 34, 0) solid;
+    border-radius: 20px;
+    width: 50px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.bump {
+    animation: bump 300ms ease-out;
+}
+
+@keyframes bump {
+    0% {
+        transform: scale(1);
+    }
+    10% {
+        transform: scale(0.9);
+    }
+    30% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

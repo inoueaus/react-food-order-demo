@@ -1,0 +1,23 @@
+.order-group {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+
+.item-group {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0.25rem;
+}
+
+.total {
+    font-size: large;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+}

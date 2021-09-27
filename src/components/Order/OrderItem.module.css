@@ -1,0 +1,43 @@
+.item {
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px rgb(116, 52, 0) solid;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.left-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.left-title {
+    font-size: larger;
+    padding-bottom: 0.25rem;
+    padding-right: 1rem;
+}
+
+.item-tanka {
+    color: rgb(116, 52, 0);
+}
+
+.counter {
+    margin-left: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 1px rgb(153, 153, 153) solid;
+    border-radius: 5px;
+}
+
+.right {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
