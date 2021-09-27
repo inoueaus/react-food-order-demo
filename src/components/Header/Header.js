@@ -8,7 +8,7 @@ const Header = (props) => {
 
   const context = useContext(CartContext);
 
-  const btnClasses = `${styles['cart-box']} ${btnBump ? styles.bump : ''}`;
+  const btnClasses = `${styles["cart-box"]} ${btnBump ? styles.bump : ""}`;
 
   useEffect(() => {
     if (context.cartCount === 0) {
@@ -18,22 +18,24 @@ const Header = (props) => {
 
     const timer = setTimeout(() => {
       setBtnBump(false);
-    }, 300)
+    }, 300);
 
     return () => {
       clearTimeout(timer);
-    }
+    };
   }, [context.cartCount]);
   return (
-    <nav className={styles.nav}>
-      <div className={styles.items}>
-        <div className={styles.title}>React Meals</div>
-        <button onClick={props.toggleOrderForm} className={btnClasses}>
-          <div className={styles['cart-text']}>Your Cart</div>
-          <div className={styles['cart-counter']}>{context.cartCount}</div>
-        </button>
-      </div>
-    </nav>
+    <header>
+      <nav className={styles.nav}>
+        <div className={styles.items}>
+          <div className={styles.title}>React Meals</div>
+          <button onClick={props.toggleOrderForm} className={btnClasses}>
+            <div className={styles["cart-text"]}>Your Cart</div>
+            <div className={styles["cart-counter"]}>{context.cartCount}</div>
+          </button>
+        </div>
+      </nav>
+    </header>
   );
 };
 
