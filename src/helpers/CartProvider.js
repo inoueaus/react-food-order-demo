@@ -1,10 +1,11 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useCallback } from "react";
 
 import orderReducer from "./orderReducer";
 import CartContext from "./cartContext";
 
 const CartProvider = (props) => {
-  const [orderItems, setOrderItems] = useReducer(orderReducer, []);
+  const callbackOrderReducer = useCallback(orderReducer,[])
+  const [orderItems, setOrderItems] = useReducer(callbackOrderReducer, []);
 
   const menu = [
     {
