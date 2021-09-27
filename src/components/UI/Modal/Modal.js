@@ -7,12 +7,12 @@ import styles from "./Modal.module.css";
 
 const ModalContents = (props) => {
     const backdropClick = (e) => {
-        if (e.target.id === 'backdrop') {
+        if (e.target.id === 'backdrop' && typeof props.onBackdropClick == 'function') {
             props.onBackdropClick();
         }
     };
     return (
-        <div id="backdrop" onClick={backdropClick} backdrop={true} className={styles['modal-overlay']}>
+        <div id="backdrop" onClick={backdropClick} className={styles['modal-overlay']}>
             <Card className={styles.content}>
                 {props.children}
             </Card>
