@@ -11,9 +11,9 @@ const MenuItem = (props) => {
   const context = useContext(CartContext);
 
   const changeAmount = (event) => {
-    const newCount = Number(event.target.value);
+    const newCount = +event.target.value;
     if (newCount > 0 && newCount < 20) {
-      setAmount(Number(event.target.value));
+      setAmount(newCount);
     } else if (newCount >= 20) {
       setAmount(20);
     }

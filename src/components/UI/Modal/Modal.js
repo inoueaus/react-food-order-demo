@@ -6,8 +6,13 @@ import Card from "../Card/Card";
 import styles from "./Modal.module.css";
 
 const ModalContents = (props) => {
+    const backdropClick = (e) => {
+        if (e.target.id === 'backdrop') {
+            props.onBackdropClick();
+        }
+    };
     return (
-        <div className={styles['modal-overlay']}>
+        <div id="backdrop" onClick={backdropClick} backdrop={true} className={styles['modal-overlay']}>
             <Card className={styles.content}>
                 {props.children}
             </Card>
@@ -17,7 +22,7 @@ const ModalContents = (props) => {
 
 const Modal = (props) => {
     return (
-        <>{ReactDOM.createPortal(<ModalContents children={props.children}/>, document.getElementById('modal'))}</>
+        <>{ReactDOM.createPortal(<ModalContents onBackdropClick={props.onBackdropClick} children={props.children}/>, document.getElementById('modal'))}</>
     );
 };
 

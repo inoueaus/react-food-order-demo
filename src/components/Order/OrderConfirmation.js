@@ -13,7 +13,7 @@ const OrderConfirmation = (props) => {
   const submitOrder = () => {};
 
   return (
-    <Modal>
+    <Modal onBackdropClick={props.toggleOrderForm}>
       <div className={styles["item-group"]}>
         {context.items.map((item) => (
           <OrderItem
