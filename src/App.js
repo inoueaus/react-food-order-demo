@@ -8,7 +8,7 @@ import CartProvider from "./helpers/CartProvider";
 function App() {
   const [showOrder, setShowOrder] = useState(false);
 
-  const toggleOrderForm = () => {setShowOrder(prevState => !prevState)};
+  const toggleOrderForm = () => {setShowOrder(prevState => !prevState);};
 
   return (
     <CartProvider setShowOrder={setShowOrder}>

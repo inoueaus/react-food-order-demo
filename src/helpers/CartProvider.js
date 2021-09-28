@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from "react";
+import React, { useReducer, useCallback, useMemo } from "react";
 
 import orderReducer from "./orderReducer";
 import CartContext from "./cartContext";
@@ -7,7 +7,7 @@ const CartProvider = (props) => {
   const callbackOrderReducer = useCallback(orderReducer,[])
   const [orderItems, setOrderItems] = useReducer(callbackOrderReducer, []);
 
-  const menu = [
+  const menu = useMemo(() => {return [
     {
       id: "menu1",
       title: "Sushi",
@@ -26,38 +26,38 @@ const CartProvider = (props) => {
       description: "Grilled on our own grill!",
       tanka: 16.49,
     },
-  ];
+  ]},[]);
 
-  const addToOrder = (id, amount) => {
+  const addToOrder = useCallback((id, amount) => {
     let newItem = menu.filter((item) => item.id === id);
     setOrderItems({
       type: "ADD_TO_ORDER",
       item: { ...newItem[0], count: amount },
     });
     //props.setShowOrder(true);
-  };
+  },[menu]);
   const increaseCount = (action) => {
     setOrderItems(action);
   };
   const decreaseCount = (action) => {
     setOrderItems(action);
   };
-  const cartCount = () => {
+  const cartCount = useCallback(() => {
     if (orderItems.length > 0) {
       return orderItems.map(item => item.count).reduce((prev,next) => prev + next);
     }
     return 0;
-  };
-  const orderTotal = () => {
+  },[orderItems]);
+  const orderTotal = useCallback(() => {
     if (orderItems.length === 0) {
       return 0;
     }
     return orderItems
       .map((item) => item.tanka * item.count)
       .reduce((prev, cur) => prev + cur).toFixed(2);
-  };
+  },[orderItems]);
 
-  const cartContext = {
+  const cartContext = useMemo(() => {return {
     items: orderItems,
     addToOrder: addToOrder,
     increaseCount: increaseCount,
@@ -65,7 +65,7 @@ const CartProvider = (props) => {
     menu: menu,
     cartCount: cartCount(),
     total: orderTotal(),
-  };
+  }},[menu,orderItems,addToOrder,cartCount,orderTotal]);
 
   return (
     <CartContext.Provider value={cartContext}>
