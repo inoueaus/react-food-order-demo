@@ -13,6 +13,10 @@ const MenuList = (props) => {
     props.addToOrder(id, amount);
   };
 
+  if (context.loading) {
+    return <div className={styles['loading']}><p>Loading</p></div>
+  }
+
   return (
     <div className={styles["menu-list"]}>
       <Card>

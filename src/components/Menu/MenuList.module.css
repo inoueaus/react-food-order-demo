@@ -11,6 +11,11 @@
     padding: 1rem;
 }
 
+.loading {
+    color: white;
+    text-align: center;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

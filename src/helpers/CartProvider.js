@@ -1,32 +1,44 @@
-import React, { useReducer, useCallback } from "react";
+import React, { useReducer, useCallback, useEffect, useState } from "react";
 
 import orderReducer from "./orderReducer";
 import CartContext from "./cartContext";
 
 const CartProvider = (props) => {
-  const callbackOrderReducer = useCallback(orderReducer,[])
+  const callbackOrderReducer = useCallback(orderReducer, []);
   const [orderItems, setOrderItems] = useReducer(callbackOrderReducer, []);
+  const [menu, setMenu] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const uri = "https://react-studies-742e1-default-rtdb.firebaseio.com/";
 
-  const menu = [
-    {
-      id: "menu1",
-      title: "Sushi",
-      description: "Finest fresh fish from the Pacific.",
-      tanka: 10.99,
-    },
-    {
-      id: "menu2",
-      title: "Schnitzel",
-      description: "A German speciality!",
-      tanka: 16.49,
-    },
-    {
-      id: "menu3",
-      title: "Barbecue",
-      description: "Grilled on our own grill!",
-      tanka: 16.49,
-    },
-  ];
+  const menuFetcher = async () => {
+    setLoading(true);
+    try {
+      const result = await fetch(`${uri}/food.json`);
+
+      if (!result.ok) {
+        throw new Error("unable to fetch menu");
+      }
+
+      const data = await result.json();
+
+      const newMenuList = [];
+      for (const key in data) {
+        newMenuList.push({
+          id: key,
+          title: data[key].title,
+          description: data[key].description,
+          tanka: data[key].tanka,
+        });
+      }
+      setMenu(newMenuList);
+    } catch (e) {
+      console.log(e);
+    }
+    setLoading(false);
+  };
+  useEffect(() => {
+    menuFetcher();
+  }, []);
 
   const addToOrder = (id, amount) => {
     let newItem = menu.filter((item) => item.id === id);
@@ -44,7 +56,9 @@ const CartProvider = (props) => {
   };
   const cartCount = () => {
     if (orderItems.length > 0) {
-      return orderItems.map(item => item.count).reduce((prev,next) => prev + next);
+      return orderItems
+        .map((item) => item.count)
+        .reduce((prev, next) => prev + next);
     }
     return 0;
   };
@@ -54,7 +68,8 @@ const CartProvider = (props) => {
     }
     return orderItems
       .map((item) => item.tanka * item.count)
-      .reduce((prev, cur) => prev + cur).toFixed(2);
+      .reduce((prev, cur) => prev + cur)
+      .toFixed(2);
   };
 
   const cartContext = {
@@ -65,6 +80,7 @@ const CartProvider = (props) => {
     menu: menu,
     cartCount: cartCount(),
     total: orderTotal(),
+    loading: loading
   };
 
   return (
