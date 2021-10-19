@@ -10,6 +10,8 @@ const MenuItem = (props) => {
 
   const context = useContext(CartContext);
 
+  const lastItemStyle = { borderBottom: "none", marginBottom: "0", padding: "0" };
+
   const changeAmount = (event) => {
     const newCount = +event.target.value;
     if (newCount > 0 && newCount < 20) {
@@ -24,7 +26,7 @@ const MenuItem = (props) => {
   };
 
   return (
-    <div style={{ borderBottom: props.last && "none", marginBottom: props.last && "0" }} className={styles["menu-item"]}>
+    <div style={props.last ? lastItemStyle : {}} className={styles["menu-item"]}>
       <div className={styles["box"]}>
         <div className={styles.title}>{props.title}</div>
         <div className={styles.description}>{props.description}</div>
