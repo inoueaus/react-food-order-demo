@@ -5,6 +5,10 @@ My build is slightly different from Maximillian's, however they are basically th
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## License
+
+Distributed under the MIT license.
+
 ## Available Scripts
 
 In the project directory, you can run:
