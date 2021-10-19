@@ -29,7 +29,7 @@ const CartState = (props) => {
           <div>${context.total}</div>
         </div>
       ) : (
-        <div>No items in cart.</div>
+        <div style={{ marginBottom: "2rem", textAlign: "center" }}>No items in cart.</div>
       )}
       <div className={styles["button-group"]}>
         <Button className="outline" onClick={props.toggleOrderForm}>
