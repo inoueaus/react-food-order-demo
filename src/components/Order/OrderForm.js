@@ -30,11 +30,12 @@ const OrderForm = (props) => {
 
     if (formValid) {
       context.sendOrder({
-        firstName: firstName.value,
-        lastName: lastName.value,
-        phoneNumber: phoneNumber.value,
+        firstName: firstName.value.trim(),
+        lastName: lastName.value.trim(),
+        phoneNumber: phoneNumber.value.trim(),
         order: context.items.map(item => ({ name: item.id, title: item.title, quantity: item.count })),
         orderTotal: context.total,
+        orderTime: new Date().toJSON()
       });
       firstName.reset();
       lastName.reset();
@@ -48,6 +49,7 @@ const OrderForm = (props) => {
       <h1>Order Form</h1>
       <Input
         label="First Name"
+        className={!firstName.isValid && firstName.touched && "invalid"}
         type="text"
         name="firstName"
         value={firstName.value}
@@ -56,6 +58,7 @@ const OrderForm = (props) => {
       />
       <Input
         label="Last Name"
+        className={!lastName.isValid && lastName.touched && "invalid"}
         type="text"
         name="lastName"
         value={lastName.value}
@@ -64,6 +67,7 @@ const OrderForm = (props) => {
       />
       <Input
         label="Phone Number"
+        className={!phoneNumber.isValid && phoneNumber.touched && "invalid"}
         placeholder="080-0000-0000"
         type="text"
         name="phoneNumber"

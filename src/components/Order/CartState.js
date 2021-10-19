@@ -11,6 +11,7 @@ const CartState = (props) => {
 
   return (
     <>
+    <h1 style={{ marginTop: "0" }}>Your Cart</h1>
       <div className={styles["item-group"]}>
         {context.items.map((item) => (
           <OrderItem

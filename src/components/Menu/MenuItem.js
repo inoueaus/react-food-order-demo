@@ -24,7 +24,7 @@ const MenuItem = (props) => {
   };
 
   return (
-    <div className={styles["menu-item"]}>
+    <div style={{ borderBottom: props.last && "none", marginBottom: props.last && "0" }} className={styles["menu-item"]}>
       <div className={styles["box"]}>
         <div className={styles.title}>{props.title}</div>
         <div className={styles.description}>{props.description}</div>

@@ -25,7 +25,7 @@ const MenuList = (props) => {
     <div className={styles["menu-list"]}>
       <Card>
         <div className={styles["menu-items"]}>
-          {context.menu.map((item) => (
+          {context.menu.map((item, index) => (
             <MenuItem
               key={item.id}
               id={item.id}
@@ -33,6 +33,7 @@ const MenuList = (props) => {
               description={item.description}
               tanka={item.tanka}
               addToOrder={addToOrder}
+              last={(index + 1) === context.menu.length}
             />
           ))}
         </div>

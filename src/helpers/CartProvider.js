@@ -63,7 +63,7 @@ const CartProvider = (props) => {
 
       const data = await response.json();
       setOrderItems({ type: "RESET" });
-      setConfirmation(data);
+      setConfirmation(data.name);
     } catch (e) {
       setOrderErrors(e.message);
     }

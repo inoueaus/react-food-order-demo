@@ -17,11 +17,16 @@ const OrderConfirmation = (props) => {
   };
 
   return (
-    <Modal onBackdropClick={props.toggleOrderForm}>
-      {orderState === "CART" && <CartState submitOrder={submitOrder} toggleOrderForm={props.toggleOrderForm} />}
-      {orderState === "FORM" && <OrderForm setOrderState={setOrderState} />}
-      {orderState === "SUBMITTED" && <OrderSubmitted />}
-    </Modal>
+      <Modal onBackdropClick={props.toggleOrderForm}>
+        {orderState === "CART" && (
+          <CartState
+            submitOrder={submitOrder}
+            toggleOrderForm={props.toggleOrderForm}
+          />
+        )}
+        {orderState === "FORM" && <OrderForm setOrderState={setOrderState} />}
+        {orderState === "SUBMITTED" && <OrderSubmitted />}
+      </Modal>
   );
 };
 
