@@ -12,6 +12,9 @@ const orderReducer = (state, action) => {
       }
       return [...state, action.item];
     }
+    if (action.type === "RESET") {
+      return [];
+    }
     if (action.type === "ADD_ONE") {
       return state.map((item) => {
         if (item.id === action.id) {

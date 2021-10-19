@@ -8,12 +8,17 @@ const CartProvider = (props) => {
   const [orderItems, setOrderItems] = useReducer(callbackOrderReducer, []);
   const [menu, setMenu] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState(null);
+  const [order, setOrder] = useState(null);
+  const [orderErrors, setOrderErrors] = useState(null);
+  const [confirmation, setConfirmation] = useState(null);
   const uri = "https://react-studies-742e1-default-rtdb.firebaseio.com/";
 
   const menuFetcher = async () => {
     setLoading(true);
+    setErrors(null);
     try {
-      const result = await fetch(`${uri}/food.json`);
+      const result = await fetch(`${uri}food.json`);
 
       if (!result.ok) {
         throw new Error("unable to fetch menu");
@@ -33,12 +38,43 @@ const CartProvider = (props) => {
       setMenu(newMenuList);
     } catch (e) {
       console.log(e);
+      setErrors(e.message);
     }
     setLoading(false);
   };
   useEffect(() => {
     menuFetcher();
   }, []);
+
+  const sendOrder = async (order) => {
+    setLoading(true);
+    setOrderErrors(null);
+    setConfirmation(null);
+    try {
+      const response = await fetch(`${uri}orders.json`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify(order),
+      });
+
+      if (!response.ok) {
+        throw new Error ('Something went wrong with your order.');
+      }
+
+      const data = await response.json();
+      setOrderItems({ type: "RESET" });
+      setConfirmation(data);
+    } catch (e) {
+      setOrderErrors(e.message);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (order) {
+      sendOrder(order);
+    }
+  }, [order])
 
   const addToOrder = (id, amount) => {
     let newItem = menu.filter((item) => item.id === id);
@@ -80,7 +116,11 @@ const CartProvider = (props) => {
     menu: menu,
     cartCount: cartCount(),
     total: orderTotal(),
-    loading: loading
+    loading: loading,
+    errors,
+    sendOrder: setOrder,
+    confirmation,
+    orderErrors
   };
 
   return (

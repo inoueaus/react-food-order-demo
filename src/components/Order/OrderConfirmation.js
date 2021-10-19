@@ -1,49 +1,26 @@
-import React, { useContext } from "react";
-
-import styles from "./OrderConfirmation.module.css";
+import React, { useContext, useState } from "react";
 
 import Modal from "../UI/Modal/Modal";
-import Button from "../UI/Button/Button";
-import OrderItem from "./OrderItem";
 import CartContext from "../../helpers/cartContext";
+import CartState from "./CartState";
+import OrderForm from "./OrderForm";
+import OrderSubmitted from "./OrderSubmitted";
 
 const OrderConfirmation = (props) => {
   const context = useContext(CartContext);
+  const [orderState, setOrderState] = useState("CART");
 
-  const submitOrder = () => {};
+  const submitOrder = () => {
+    if (context.items.length > 0) {
+      setOrderState("FORM");
+    }
+  };
 
   return (
     <Modal onBackdropClick={props.toggleOrderForm}>
-      <div className={styles["item-group"]}>
-        {context.items.map((item) => (
-          <OrderItem
-            key={item.id}
-            id={item.id}
-            title={item.title}
-            tanka={item.tanka}
-            count={item.count}
-          />
-        ))}
-      </div>
-      {context.items.length > 0 ? (
-        <div className={styles.total}>
-          <div>Total Amount</div>
-          <div>${context.total}</div>
-        </div>
-      ) : (
-        <div>No items in cart.</div>
-      )}
-      <div className={styles["button-group"]}>
-        <Button className="outline" onClick={props.toggleOrderForm}>
-          Close
-        </Button>
-        <Button
-          className={context.items.length === 0 && "disabled"}
-          onClick={submitOrder}
-        >
-          Order
-        </Button>
-      </div>
+      {orderState === "CART" && <CartState submitOrder={submitOrder} toggleOrderForm={props.toggleOrderForm} />}
+      {orderState === "FORM" && <OrderForm setOrderState={setOrderState} />}
+      {orderState === "SUBMITTED" && <OrderSubmitted />}
     </Modal>
   );
 };

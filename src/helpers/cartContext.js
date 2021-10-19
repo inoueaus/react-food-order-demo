@@ -8,6 +8,11 @@ const CartContext = React.createContext({
     menu: [],
     cartCount: 0,
     total: 0,
+    loading: false,
+    errors: null,
+    sendOrder: (order) => {},
+    confirmation: null,
+    orderErrors: null
 });
 
 export default CartContext;
