@@ -30,10 +30,10 @@ const OrderForm = (props) => {
 
     if (formValid) {
       context.sendOrder({
-        firstName,
-        lastName,
-        phoneNumber,
-        order: context.items,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        phoneNumber: phoneNumber.value,
+        order: context.items.map(item => ({ name: item.id, title: item.title, quantity: item.count })),
         orderTotal: context.total,
       });
       firstName.reset();
