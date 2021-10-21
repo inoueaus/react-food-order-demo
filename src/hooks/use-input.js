@@ -1,25 +1,24 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const useInput = (validator) => {
-  const [value, setValue] = useState("");
-  const [touched, setTouched] = useState(false);
-
-  const isValid = validator(value);
-
-  const handleInput = (e) => {
-    setValue(e.target.value);
-  };
+  const ref = useRef("");
+  const [isValid, setIsValid] = useState(true);
 
   const handleBlur = (e) => {
-    setTouched(true);
+    setIsValid(validator(ref.current.value));
   };
 
   const reset = () => {
-    setValue("");
-    setTouched("");
+    setIsValid(true);
   };
 
-  return { value, touched, isValid, handleInput, handleBlur, reset };
+  return {
+    value: ref.current.value,
+    ref,
+    isValid,
+    handleBlur,
+    reset,
+  };
 };
 
 export default useInput;

@@ -14,7 +14,7 @@ const OrderSubmitted = (props) => {
     return (
         <div>
             <h1>Order Submitted!</h1>
-            <p>{context.loading ? <p>Sending...</p> : <p>Order Confirmation No. {confirmationNo}</p> }</p>
+            {context.loading ? <p>Sending...</p> : <p>Order Confirmation No. {confirmationNo}</p> }
         </div>
     );
 };

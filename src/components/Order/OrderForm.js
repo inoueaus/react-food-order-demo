@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import CartContext from "../../helpers/cartContext";
 import useInput from "../../hooks/use-input";
 import Button from "../UI/Button/Button";
@@ -18,6 +18,7 @@ const OrderForm = (props) => {
   const context = useContext(CartContext);
   const firstName = useInput(nameValidator);
   const lastName = useInput(nameValidator);
+  const formRef = useRef();
   const phoneNumber = useInput((value) => {
     return /^\d{1,}-\d{1,4}-\d{4}$/.test(value);
   });
@@ -40,39 +41,37 @@ const OrderForm = (props) => {
       firstName.reset();
       lastName.reset();
       phoneNumber.reset();
+      formRef.current.reset();
       props.setOrderState("SUBMITTED");
     }
   };
 
   return (
-    <form className={styles["order-form"]} onSubmit={submitHandler}>
+    <form ref={formRef} className={styles["order-form"]} onSubmit={submitHandler}>
       <h1>Order Form</h1>
       <Input
         label="First Name"
-        className={!firstName.isValid && firstName.touched && "invalid"}
+        ref={firstName.ref}
+        className={!firstName.isValid && "invalid"}
         type="text"
         name="firstName"
-        value={firstName.value}
-        onChange={firstName.handleInput}
         onBlur={firstName.handleBlur}
       />
       <Input
         label="Last Name"
-        className={!lastName.isValid && lastName.touched && "invalid"}
+        ref={lastName.ref}
+        className={!lastName.isValid && "invalid"}
         type="text"
         name="lastName"
-        value={lastName.value}
-        onChange={lastName.handleInput}
         onBlur={lastName.handleBlur}
       />
       <Input
         label="Phone Number"
-        className={!phoneNumber.isValid && phoneNumber.touched && "invalid"}
+        ref={phoneNumber.ref}
+        className={!phoneNumber.isValid && "invalid"}
         placeholder="080-0000-0000"
         type="text"
         name="phoneNumber"
-        value={phoneNumber.value}
-        onChange={phoneNumber.handleInput}
         onBlur={phoneNumber.handleBlur}
       />
       <div className={styles.buttons}>
